@@ -72,9 +72,13 @@ fn frame(mut app App) {
 
 fn on_key_down(key gg.KeyCode, mod gg.Modifier, mut app App) {
 	match key {
-		.a {
+		.q {
 			println('Closing application.')
 			app.ctx.quit()
+		}
+		.r {
+			println('Reseting application')
+			app.reset()
 		}
 		.space {
 			app.kmeans_step()
@@ -82,6 +86,13 @@ fn on_key_down(key gg.KeyCode, mod gg.Modifier, mut app App) {
 		}
 		else {}
 	}
+}
+
+// Starts a new visualization
+fn (mut app App) reset() {
+	app.data = gaussians_dataset(k, n)
+	app.step = 0
+	app.init_centroids(k)
 }
 
 fn (app &App) draw_points() {
